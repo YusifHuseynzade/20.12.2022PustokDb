@@ -1,0 +1,24 @@
+﻿@model Author
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="m-sm-3">Edit</h1>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form asp-action="edit" method="post">
+                    <div class="form-group">
+                        <label asp-for="FullName">FullName</label>
+                        <input asp-for="FullName" type="text" class="form-control" id="FullNameInput">
+                        <span class="text-danger" asp-validation-for="FullName"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

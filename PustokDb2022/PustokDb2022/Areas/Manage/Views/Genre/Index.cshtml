@@ -1,0 +1,56 @@
+﻿@model List<Genre>
+
+@{
+    ViewData["Title"] = "Index";
+    int selectedPage = ViewBag.Page;
+    int totalPage = ViewBag.TotalPage;
+    int order = (selectedPage - 1) * 2;
+}
+<div class="row justify-content-between align-content-center">
+<div class="col-md-4">
+<h2 style="color:grey" class="m-sm-3">Genres</h2>
+</div>
+<div class="col-md-3 d-flex align-items-center">
+    <a asp-action="create" class="btn btn-primary">Create</a>
+</div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+<table class="table table-hover">
+  
+@foreach (var genre in Model)
+{
+        order++;
+        <tr>
+            <th scope="row">@order</th>
+            <td>@genre.Name</td>
+            <td>@genre.Books.Count()</td>
+            <td>
+               <a class="btn btn-danger" asp-action="delete" asp-route-id="@genre.Id">Delete</a>
+               <a class="btn btn-info" asp-action="edit" asp-route-id="@genre.Id">Edit</a>
+            </td>
+        </tr>
+}
+    </table>
+</div>
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(selectedPage == 1 ? "disabled":"")">
+                        <a class="page-link" asp-action="index" asp-route-page="@(selectedPage-1)" tabindex="-1">Previous</a>
+                    </li>
+                    @for (var i = 1; i <= totalPage; i++)
+                    {
+                        <li class="page-item @(i==selectedPage?"active":"")"><a class="page-link" asp-action="index" asp-route-page="@i">@i</a></li>
+                    }
+                    <li class="page-item @(selectedPage == totalPage ? "disabled":"")">
+                        <a class="page-link" asp-action="index" asp-route-page="@(selectedPage+1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+</div>

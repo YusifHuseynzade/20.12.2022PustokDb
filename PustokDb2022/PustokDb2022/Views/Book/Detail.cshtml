@@ -1,0 +1,285 @@
+﻿@model BookDetailViewModel
+
+@{
+    BookImage poster;
+    BookImage hoverPoster;
+}
+<section class="breadcrumb-section">
+    <h2 class="sr-only">Site Breadcrumb</h2>
+    <div class="container">
+        <div class="breadcrumb-contents">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active">Product Details</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</section>
+<main class="inner-page-sec-padding-bottom">
+    <div class="container">
+        <div class="row  mb--60">
+            <div class="col-lg-5 mb--30">
+                <!-- Product Details Slider Big Image-->
+                <div class="product-details-slider sb-slick-slider arrow-type-two" data-slick-setting='{
+              "slidesToShow": 1,
+              "arrows": false,
+              "fade": true,
+              "draggable": false,
+              "swipe": false,
+              "asNavFor": ".product-slider-nav"
+              }'>
+
+                    @foreach (var item in Model.Book.BookImages)
+                    {
+                        <div class="single-slide">
+                            <img src="~/uploads/books/@item.Image" alt="">
+                        </div>
+                    }
+                </div>
+                <!-- Product Details Slider Nav -->
+                <div class="mt--30 product-slider-nav sb-slick-slider arrow-type-two" data-slick-setting='{
+            "infinite":true,
+              "autoplay": true,
+              "autoplaySpeed": 8000,
+              "slidesToShow": 4,
+              "arrows": true,
+              "prevArrow":{"buttonClass": "slick-prev","iconClass":"fa fa-chevron-left"},
+              "nextArrow":{"buttonClass": "slick-next","iconClass":"fa fa-chevron-right"},
+              "asNavFor": ".product-details-slider",
+              "focusOnSelect": true
+              }'>
+                    @foreach (var item in Model.Book.BookImages)
+
+                    {
+
+                        <div class="single-slide">
+                            <img src="~/uploads/books/@item.Image" alt="">
+                        </div>
+
+                    }
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="product-details-info pl-lg--30 ">
+                    <p class="tag-block">Tags: <a href="#">Movado</a>, <a href="#">Omega</a></p>
+                    <h3 class="product-title">@Model.Book.Name</h3>
+                    <ul class="list-unstyled">
+                        <li>Genre: <a href="#" class="list-value font-weight-bold"> @Model.Book.Genres.Name</a></li>
+                        <li>Author: <span class="list-value"> @Model.Book.Authors.FullName</span></li>
+                        <li>Availability: <span class="list-value"> @(Model.Book.StockStatus ? "In Stock" : "Out Stock")</span></li>
+                    </ul>
+                    <div class="price-block">
+                        @if (Model.Book.DisCountPercent > 0)
+                        {
+                            <span class="price-new">£@((Model.Book.SalePrice*(100-Model.Book.DisCountPercent)/100).ToString("0.00"))</span>
+                            <del class="price-old">£@Model.Book.SalePrice</del>
+                        }
+                        else
+                        {
+                            <span class="price-new">£@Model.Book.SalePrice</span>
+
+                        }
+                    </div>
+                    <div class="rating-widget">
+                        <div class="rating-block">
+                            @for (var i = 1; i <= 5; i++)
+                            {
+                                <span class="fas fa-star @(Model.Book.AvgRate>=i?"star_on":"")"></span>
+
+                            }
+                        </div>
+                        <div class="review-widget">
+                            <a href="#">(@Model.Book.Reviews.Count Reviews)</a> <span>|</span>
+                            <a href="#">Write a review</a>
+                        </div>
+                    </div>
+                    <article class="product-details-article">
+                        <h4 class="sr-only">Product Summery</h4>
+                        <p>
+                            Long printed dress with thin adjustable straps. V-neckline and wiring under the Dust
+                            with ruffles at the bottom of the
+                            dress.
+                        </p>
+                    </article>
+                    <div class="add-to-cart-row">
+                        <div class="count-input-block">
+                            <span class="widget-label">Qty</span>
+                            <input type="number" class="form-control text-center" value="1">
+                        </div>
+                        <div class="add-cart-btn">
+                            <a href="#" class="btn btn-outlined--primary">
+                                <span class="plus-icon">+</span>Add to
+                                Cart
+                            </a>
+                        </div>
+                    </div>
+                    <div class="compare-wishlist-row">
+                        <a href="#" class="add-link"><i class="fas fa-heart"></i>Add to Wish List</a>
+                        <a href="#" class="add-link"><i class="fas fa-random"></i>Add to Compare</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sb-custom-tab review-tab section-padding">
+            <ul class="nav nav-tabs nav-style-2" id="myTab2" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="tab1" data-toggle="tab" href="#tab-1" role="tab"
+                       aria-controls="tab-1" aria-selected="true">
+                        DESCRIPTION
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tab2" data-toggle="tab" href="#tab-2" role="tab"
+                       aria-controls="tab-2" aria-selected="true">
+                        REVIEWS (@Model.Book.Reviews.Count)
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content space-db--20" id="myTabContent">
+                <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab1">
+                    <article class="review-article">
+                        <h1 class="sr-only">Tab Article</h1>
+                        <p>
+                            Fashion has been creating well-designed collections since 2010. The brand offers
+                            feminine designs delivering
+                            stylish
+                            separates and statement dresses which have since evolved into a full ready-to-wear
+                            collection in which every
+                            item is
+                            a
+                            vital part of a woman's wardrobe. The result? Cool, easy, chic looks with youthful
+                            elegance and unmistakable
+                            signature
+                            style. All the beautiful pieces are made in Italy and manufactured with the greatest
+                            attention. Now Fashion
+                            extends
+                            to
+                            a range of accessories including shoes, hats, belts and more!
+                        </p>
+                    </article>
+                </div>
+                <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab2">
+                    <div class="review-wrapper">
+                        <h2 class="title-lg mb--20">@Model.Book.Reviews.Count REVIEW FOR @Model.Book.Name</h2>
+                        @foreach (var rw in Model.Book.Reviews)
+                        {
+                            <div class="review-comment mb--20">
+                                <div class="avatar">
+                                    <img src="~/assets/image/icon/author-logo.png" alt="">
+                                </div>
+                                <div class="text">
+                                    <div class="rating-block mb--15">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            <span class="ion-android-star-outline @(rw.Rate>=i?"star_on":"")"></span>
+                                        }
+                                    </div>
+                                    <h6 class="author">
+                                        @rw.AppUser.FullName
+                                    </h6>
+                                    <p>
+                                        @rw.Text
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                        @if (Model.HasReview)
+                        {
+                            <h2 class="title-lg mb--20 pt--15"> You have written a review</h2>
+                        }
+                        else
+                        {
+                            <h2 class="title-lg mb--20 pt--15">ADD A REVIEW</h2>
+                            @await Html.PartialAsync("_BookReviewFormPartial",Model.ReviewVM)
+                        }
+                    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=================================
+        RELATED PRODUCTS BOOKS
+    ===================================== -->
+    <section class="">
+        <div class="container">
+            <div class="section-title section-title--bordered">
+                <h2>RELATED PRODUCTS</h2>
+            </div>
+            <div class="product-slider sb-slick-slider slider-border-single-row" data-slick-setting='{
+                "autoplay": true,
+                "autoplaySpeed": 8000,
+                "slidesToShow": 4,
+                "dots":true
+            }' data-slick-responsive='[
+                {"breakpoint":1200, "settings": {"slidesToShow": 4} },
+                {"breakpoint":992, "settings": {"slidesToShow": 3} },
+                {"breakpoint":768, "settings": {"slidesToShow": 2} },
+                {"breakpoint":480, "settings": {"slidesToShow": 1} }
+            ]'>
+                @foreach (var item in Model.RelatedBooks)
+                {
+                    poster = item.BookImages.FirstOrDefault(x => x.PosterStatus == true);
+                    hoverPoster = item.BookImages.FirstOrDefault(x => x.PosterStatus == false);
+                    <div class="single-slide">
+                        <div class="product-card">
+                            <div class="product-header">
+                                <a href="#" class="author">
+                                    @item.Authors.FullName
+                                </a>
+                                <h3>
+                                    <a asp-controller="book" asp-action="detail" asp-route-id="@item.Id">
+                                        @item.Name
+                                    </a>
+                                </h3>
+                            </div>
+                            <div class="product-card--body">
+                                <div class="card-image">
+                                    <img src="~/image/products/@(poster==null?"product-14.jpg":poster.Image)" alt="">
+                                    <div class="hover-contents">
+                                        <a href="product-details.html" class="hover-image">
+                                            <img src="~/image/products/@(hoverPoster==null?"product-14.jpg":hoverPoster.Image)" alt="">
+                                        </a>
+                                        <div class="hover-btns">
+                                            <a href="cart.html" class="single-btn">
+                                                <i class="fas fa-shopping-basket"></i>
+                                            </a>
+                                            <a href="wishlist.html" class="single-btn">
+                                                <i class="fas fa-heart"></i>
+                                            </a>
+                                            <a asp-controller="book" asp-action="detail" asp-route-id="@item.Id" class="single-btn">
+                                                <i class="fas fa-random"></i>
+                                            </a>
+                                            <a asp-controller="book" asp-action="getbook" asp-route-id="@item.Id"
+                                           class="single-btn book-modal-btn">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="price-block">
+                                    @if (Model.Book.DisCountPercent > 0)
+                                    {
+                                        <span class="price">£@((Model.Book.SalePrice*(100-Model.Book.DisCountPercent)/100).ToString("0.00"))</span>
+                                        <del class="price-old">£@Model.Book.SalePrice</del>
+                                        <span class="price-discount">@Model.Book.DisCountPercent.ToString("0.##")%</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="price">£@Model.Book.SalePrice</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+</main>
+@section Scripts{
+    @Html.Partial("_ValidationScriptsPartial");
+}

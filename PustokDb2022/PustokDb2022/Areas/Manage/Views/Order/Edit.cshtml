@@ -1,0 +1,44 @@
+﻿@model Order
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<div class="container">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-8">
+            <div class="card" style="width:100%;">
+                <div class="card-body">
+                    <h5 class="card-title">Order</h5>
+                    <p class="card-text">
+                        <h4>Fullname: @Model.Fullname</h4>
+                        <h4>Email:@Model.Email </h4>
+                        <h4>City: @Model.City</h4>
+                        <h4>Zipcode: @Model.ZipCode</h4>
+                        <h4>Address1: @Model.Address1</h4>
+                        <h4>Address2: @Model.Address2</h4>
+                        <h4>Note: @Model.Note</h4>
+                    </p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach(var item in Model.OrderItems)
+                    {
+                    <li class="list-group-item">@item.Name X @item.Count - SP:@item.SalePrice - DP:@item.DiscountPercent - CP: @item.CostPrice</li>
+                    }
+                </ul>
+                <div class="card-body">
+                    <div class="row justify-content-end">
+                         <form method="post" asp-action="accept" asp-route-id="@Model.Id" >
+                        <button class="btn btn-primary " type="submit">Accept</button>
+                    </form>
+                     <form method="post" asp-action="reject" asp-route-id="@Model.Id" >
+                        <button class="btn btn-danger mx-sm-2" type="submit">Reject</button>
+                    </form>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

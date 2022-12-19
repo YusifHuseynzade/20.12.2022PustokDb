@@ -1,0 +1,12 @@
+﻿.delete-item {
+    position: absolute;
+    right: -5px;
+    top: -18px;
+    font-size: 24px;
+    color:red;
+    cursor:pointer;
+}
+
+.img-box {
+    position: relative;
+}

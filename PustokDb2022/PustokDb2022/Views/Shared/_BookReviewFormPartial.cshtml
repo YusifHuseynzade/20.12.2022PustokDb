@@ -1,0 +1,35 @@
+﻿@model ReviewCreateViewModel
+<div class="rating-row pt-2">
+                            <p class="d-block">Your Rating</p>
+                            <span class="rating-widget-block">
+                                <input form="review-form" asp-for="Rate" type="radio" value="5"  id="star1">
+                                <label for="star1"></label>
+                                <input form="review-form" type="radio" asp-for="Rate" value="4"  id="star2">
+                                <label for="star2"></label>
+                                <input form="review-form" type="radio" asp-for="Rate" value="3"  id="star3">
+                                <label for="star3"></label>
+                                <input form="review-form" type="radio" asp-for="Rate" value="2" id="star4">
+                                <label for="star4"></label>
+                                <input form="review-form" type="radio" asp-for="Rate" value="1"  id="star5">
+                                <label for="star5"></label>
+                                 <span class="text-danger" asp-validation-for="Rate"></span>
+                            </span>
+                            <form asp-action="review" id="review-form" method="post" class="mt--15 site-form ">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label for="message">Comment</label>
+                                            <textarea asp-for="Text"  id="message" cols="30" rows="10"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                        <span class="text-danger" asp-validation-for="Text"></span>
+                                    </div>
+                                 <input  type="hidden" name="BookId" value="@Model.BookId" />
+                                    <div class="col-lg-4">
+                                        <div class="submit-btn">
+                                            <button  type="submit" class="btn btn-black">Post Comment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>

@@ -1,0 +1,78 @@
+﻿@model PaginationList<Book>
+@{
+    ViewData["Title"] = "Index";
+
+    int counter = (Model.PageIndex-1)*Model.PageSize;
+}
+
+<div class="row justify-content-between align-content-center">
+    <div class="col-md-4">
+<h1 class="m-0">Books</h1>
+</div>
+<div class="col-md-3 d-flex align-items-center">
+    <a asp-action="create" class="btn btn-primary">Create</a>
+</div>
+
+</div>
+    
+<div class="container-fluid">
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Genre</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">SalePrice</th>
+                    <th scope="col">CostPrice</th>
+                    <th scope="col">Discount</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    counter++;
+                    <tr>
+                        <th scope="row">@counter</th>
+                        <td>@item.Name</td>
+                        <td>@item.Genres.Name</td>
+                        <td>@item.Authors.FullName</td>
+                        <td>@item.SalePrice</td>
+                        <td>@item.CostPrice</td>
+                        <td>@item.DisCountPercent</td>
+                        <td><img width="100" src="~/uploads/books/@item.BookImages.FirstOrDefault(x=>x.PosterStatus==true)?.Image"/></td>
+                        <td>
+                            <a class="btn btn-danger  trash-btn" asp-action="delete" asp-route-id="@item.Id">Delete</a>
+                            <a class="btn btn-info" asp-action="edit" asp-route-id="@item.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+  <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item @(!Model.HasPrevious?"disabled":"")">
+                        <a class="page-link" asp-action="index" asp-route-page="@(Model.PageIndex-1)" tabindex="-1">Previous</a>
+                    </li>
+                   @for (var i = 1; i <= Model.TotalPages; i++)
+                   {
+                    <li class="page-item @(i==Model.PageIndex?"active":"")"><a class="page-link" asp-action="index" asp-route-page="@i">@i</a></li>
+                   }
+                    <li class="page-item @(!Model.HasNext?"disabled":"")">
+                        <a class="page-link" asp-action="index" asp-route-page="@(Model.PageIndex+1)">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    </div>
+
+</div>

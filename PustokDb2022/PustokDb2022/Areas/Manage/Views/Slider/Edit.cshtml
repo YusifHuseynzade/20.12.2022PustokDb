@@ -1,0 +1,56 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="m-sm-3">Edit</h1>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form asp-action="edit" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="Order">Order</label>
+                        <input asp-for="Order" class="form-control">
+                        <span class="text-danger" asp-validation-for="Order"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title1">Title1</label>
+                        <input asp-for="Title1" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="Title1"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Title2">Title2</label>
+                        <input asp-for="Title2" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="Title2"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BtnText">BtnText</label>
+                        <input asp-for="BtnText" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="BtnText"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="RedirectUrl">RedirectUrl</label>
+                        <input asp-for="RedirectUrl" type="text" class="form-control">
+                        <span class="text-danger" asp-validation-for="RedirectUrl"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Desc">Desc</label>
+                        <textarea asp-for="Desc" type="text" class="form-control"></textarea>
+                        <span class="text-danger" asp-validation-for="Desc"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="ImageFile">ImageFile</label>
+                        <input asp-for="ImageFile" class="form-control">
+                        <span class="text-danger" asp-validation-for="ImageFile"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
